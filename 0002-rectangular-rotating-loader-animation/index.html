@@ -1,17 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Rectangular rotating loader animation</title>
-  <link rel="stylesheet" href="index.css">
-</head>
-<body>
-  <div class="loader">
-    <span></span>
-    <span></span>
-    <span></span>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Rectangular rotating loader animation</title>
+    <!-- <link rel="stylesheet" href="index.css"> -->
+    <style>
+      html,
+      body {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #000;
+      }
+
+      .loader {
+        width: 150px;
+        height: 150px;
+        position: relative;
+      }
+
+      .loader span {
+        position: absolute;
+        box-sizing: border-box;
+        border: 10px solid dimgray;
+        border-radius: 2px;
+      }
+
+      .loader span:nth-child(1) {
+        width: 100%;
+        height: 100%;
+      }
+
+      .loader span:nth-child(2) {
+        width: 70%;
+        height: 70%;
+        margin: 15%;
+      }
+
+      .loader span:nth-child(3) {
+        width: 40%;
+        height: 40%;
+        margin: 30%;
+      }
+
+      .loader span::before,
+      .loader span::after {
+        position: absolute;
+        content: "";
+        width: 10px;
+        height: calc(50% + 10px);
+        background-color: gold;
+      }
+
+      .loader span::before {
+        top: -10px; /**这个是相对于父元素 loader这个div的**/
+        left: -10px;
+      }
+
+      .loader span::after {
+        bottom: -10px; /**这个是相对于父元素的**/
+        right: -10px;
+      }
+
+
+      /** add animation **/
+
+      @keyframes rotating {
+        from {
+          transform: rotateY(0);
+        }
+        to {
+          transform: rotateY(360deg);
+        }
+      }
+
+      .loader span {
+        animation: rotating linear infinite;
+      }
+
+      .loader span:nth-child(1) {
+        animation-duration: 4s;
+      }
+
+      .loader span:nth-child(2) {
+        animation-duration: 2s;
+      }
+
+      .loader span:nth-child(3) {
+        animation-duration: 1s;
+      }
+      
+      .loader span:nth-child(1) {
+        z-index: 3;
+      }
+
+      .loader span:nth-child(2) {
+        z-index: 2;
+      }
+      /**
+      z-index 属性设置元素的堆叠顺序。拥有更高堆叠顺序的元素总是会处于堆叠顺序较低的元素的前面。
+
+注释：元素可拥有负的 z-index 属性值。
+
+注释：Z-index 仅能在定位元素上奏效（例如 position:absolute;）！
+      **/
+      .loader span:nth-child(3) {
+        z-index: 1;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="loader">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </body>
 </html>

@@ -1,20 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Button text staggered sliding effects</title>
-  <link rel="stylesheet" href="./index.css">
-</head>
-<body>
-  <div class="box">
-    <span data-text="B">B</span>
-    <span data-text="U">U</span>
-    <span data-text="T">T</span>
-    <span data-text="T">T</span>
-    <span data-text="O">O</span>
-    <span data-text="N">N</span>
-  </div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Button text staggered sliding effects</title>
+    <link rel="stylesheet" href="./index2.css" />
+
+    <style type="text/css">
+      html,
+      body {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .box {
+        width: 200px;
+        height: 60px;
+        line-height: 60px;
+        /* line-height 与 font-size 的计算值之差（在 CSS 中成为“行间距”）分为两半，分别加到一个文本行内容的顶部和底部。可以包含这些内容的最小框就是行框。 */
+        font-size: 30px;
+        border: 1px solid #000;
+        text-align: center;
+        /**用于下面的在向Y轴偏移后的绝对定位中遮住元素**/
+        overflow: hidden;
+        /* 父元素未被撑开:当子元素浮动时，它的父元素不是不在了，因为父元素的高height：auto为自动值，就是根据里面的内容自动设置高度，由于子元素设置了左浮动，已经浮动起来了属于浮动流，不在普通流中，因此父元素普通流中的内容为空，所以没有高度。解决方法就为给浮动块的父元素设置overflow：hidden；当然还有其他方法，这个最为简便。 */
+        cursor: pointer;
+      }
+
+      .box span {
+        /* display:inline;强制变成行内元素 display:block;强制变成块元素 displsy:inline-block;顾名思义就是行内块的意思了 */
+        display: inline-block;
+        color: lightblue;
+      }
+
+      .box span:nth-child(odd) {
+        transform: translateY(-100%);
+      }
+
+      .box span:nth-child(even) {
+        transform: translateY(100%);
+      }
+
+      .box span::before {
+        content: attr(data-text);
+        position: absolute;
+        color: red;
+      }
+      /**https://www.cnblogs.com/wonyun/p/5807191.html**/
+      .box span:nth-child(odd)::before {
+        transform: translateY(100%);
+      }
+
+      .box span:nth-child(even)::before {
+        transform: translateY(-100%);
+      }
+
+      .box:hover span {
+        transform: translateY(0);
+      }
+
+      .box span {
+        transition: 0.5s;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <span data-text="B">B</span>
+      <span data-text="U">U</span>
+      <span data-text="T">T</span>
+      <span data-text="T">T</span>
+      <span data-text="O">O</span>
+      <span data-text="N">N</span>
+    </div>
+  </body>
 </html>
